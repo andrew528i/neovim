@@ -21,6 +21,7 @@ local plugins = {
   require("plugins.modes"),
   require("plugins.neo-tree"),
   require("plugins.neoscroll"),
+  require("plugins.noice"),
   require("plugins.nvim-cmp"),
   require("plugins.nvim-lspconfig"),
   require("plugins.nvim-scrollbar"),
@@ -34,9 +35,9 @@ local plugins = {
   require("plugins.todo-comments"),
   require("plugins.treesj"),
   require("plugins.true-zen"),
+  require("plugins.vim-fugitive"),
   require("plugins.vim-lastplace"),
   require("plugins.which-key"),
-  require("plugins.wilder"),
   require("plugins.workspaces"),
 }
 
