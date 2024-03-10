@@ -10,3 +10,5 @@ vim.keymap.set({ "n", "v" }, ";", ":")
 
 -- easy way to quit all
 vim.keymap.set({ "n", "v" }, "qa", "<cmd>qa<cr>")
+vim.keymap.set({ "n", "v" }, "qw", "<C-w>q")
+vim.keymap.set({ "n", "v" }, "vv", "<C-w>v")
