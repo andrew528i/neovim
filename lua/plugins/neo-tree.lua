@@ -13,7 +13,7 @@ return {
       version = "2.*",
       opts = {
         hint = "floating-big-letter",
-        selection_chars = "ASDFGHJKL",
+        selection_chars = "FJGHDKSLA",
       },
     },
   },
@@ -28,14 +28,16 @@ return {
       filesystem = {
         window = {
           mappings = {
-            ["jj"] = "test",
+            ["g"] = "grep_directory",
           }
         },
         commands = {
-          test = function(state)
-            -- print(vim.inspect(state))
-            -- local fs = require("neo-tree.sources.filesystem")
-            vim.notify(vim.inspect(state))
+          grep_directory = function(state)
+            local node = state.tree:get_node()
+
+            if node.type == "directory" then
+              vim.cmd("Telescope live_grep search_dirs=" .. node.path)
+            end
           end
         },
       },
