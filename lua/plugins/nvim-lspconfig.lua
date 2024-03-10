@@ -7,6 +7,9 @@ local _LSP_SERVERS = {
           library = vim.api.nvim_get_runtime_file("", true),
         },
         telemetry = { enable = false },
+        completion = {
+          callSnippet = "Replace"
+        },
       },
     },
   },
@@ -15,16 +18,6 @@ local _LSP_SERVERS = {
 return {
   "neovim/nvim-lspconfig",
   dependencies = {
-    {
-      "ray-x/lsp_signature.nvim",
-      opts = {
-        bind = true,
-        handler_opts = {
-          border = "rounded",
-        },
-        toggle_key = "<C-k>",
-      }
-    },
     {
       "SmiteshP/nvim-navbuddy",
       dependencies = {
@@ -40,13 +33,16 @@ return {
       keys = {
         { "<leader>b", "<cmd>Navbuddy<cr>", mode = { "n", "v" }, desc = "Nav buddy" },
       },
-    }
+    },
+    {
+      "folke/neodev.nvim",
+      opts = {},
+    },
   },
   priority = 800,
   config = function()
     local lspconfig = require("lspconfig")
     local capabilities = require("cmp_nvim_lsp").default_capabilities()
-    local lsp_signature = require("lsp_signature")
     local navbuddy = require("nvim-navbuddy")
     local navic = require("nvim-navic")
 
@@ -55,7 +51,6 @@ return {
         navic.attach(client, bufnr)
       end
       navbuddy.attach(client, bufnr)
-      lsp_signature.on_attach(client, bufnr)
     end
 
     for lsp_name, lsp_config in pairs(_LSP_SERVERS) do
