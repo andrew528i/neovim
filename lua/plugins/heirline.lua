@@ -345,8 +345,15 @@ return {
 
     local FileName = {
       provider = function(self)
-        local filename = vim.fn.expand("%:t")
+        -- local filename = vim.fn.expand("%:t")
+        -- if filename == "" then return "[No Name]" end
+        -- return filename
+
+        local filename = vim.fn.fnamemodify(self.filename, ":.")
         if filename == "" then return "[No Name]" end
+        if not conditions.width_percent_below(#filename, 0.25) then
+            filename = vim.fn.pathshorten(filename)
+        end
         return filename
       end,
       hl = { fg = "blue", bg = "bg_dark" },
