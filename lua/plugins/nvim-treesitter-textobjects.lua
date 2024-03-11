@@ -7,11 +7,16 @@ return {
           enable = true,
           lookahead = true,
           keymaps = {
-            ["af"] = { query = "@function.outer", desc = "Function outer" },
-            ["if"] = { query = "@function.inner", desc = "Function innter" },
+            ["am"] = { query = "@function.outer", desc = "Function outer" },
+            ["im"] = { query = "@function.inner", desc = "Function innter" },
 
-            ["aa"] = { query = "@parameter.outer", desc = "Parameter outer" },
-            ["ia"] = { query = "@parameter.inner", desc = "Parameter inner" },
+            ["a="] = { query = "@assignment.outer", desc = "Select outer part of an assignment" },
+            ["i="] = { query = "@assignment.inner", desc = "Select inner part of an assignment" },
+            ["l="] = { query = "@assignment.lhs", desc = "Select left hand side of an assignment" },
+            ["r="] = { query = "@assignment.rhs", desc = "Select right hand side of an assignment" },
+
+            ["ap"] = { query = "@parameter.outer", desc = "Parameter outer" },
+            ["ip"] = { query = "@parameter.inner", desc = "Parameter inner" },
 
             ["ac"] = { query = "@call.outer", desc = "Call outer" },
             ["ic"] = { query = "@call.inner", desc = "Call inner" },
@@ -24,12 +29,12 @@ return {
         swap = {
           enable = true,
           swap_next = {
-            ["<leader>na"] = { query = "@parameter.inner", desc = "Swap parameter with next" },
-            ["<leader>nf"] = { query = "@function.outer", desc = "Swap function with next" },
+            ["<leader>np"] = { query = "@parameter.inner", desc = "Swap parameter with next" },
+            ["<leader>nm"] = { query = "@function.outer", desc = "Swap function with next" },
           },
           swap_previous = {
-            ["<leader>pa"] = { query = "@parameter.inner", desc = "Swap parameter with previous" },
-            ["<leader>pf"] = { query = "@function.outer", desc = "Swap function with previous" },
+            ["<leader>pp"] = { query = "@parameter.inner", desc = "Swap parameter with previous" },
+            ["<leader>pm"] = { query = "@function.outer", desc = "Swap function with previous" },
           },
         },
 
@@ -39,20 +44,20 @@ return {
           goto_next_start = {
             ["]m"] = { query = "@function.outer", desc = "Next function start" },
             ["]z"] = { query = "@fold", query_group = "folds", desc = "Next fold" },
-            ["]a"] = { query = "@parameter.inner", desc = "Next argument" },
+            ["]p"] = { query = "@parameter.inner", desc = "Next argument" },
           },
           goto_next_end = {
             ["]M"] = { query = "@function.outer", desc = "Next function end" },
-            ["]A"] = { query = "@parameter.inner", desc = "Next argument end" },
+            ["]P"] = { query = "@parameter.inner", desc = "Next argument end" },
           },
           goto_previous_start = {
             ["[m"] = { query = "@function.outer", desc = "Prev method/function def start" },
-            ["[a"] = { query = "@parameter.inner", desc = "Prev argument" },
+            ["[p"] = { query = "@parameter.inner", desc = "Prev argument" },
             ["[z"] = { query = "@fold", query_group = "folds", desc = "Previous fold" },
           },
           goto_previous_end = {
             ["[M"] = { query = "@function.outer", desc = "Prev method/function def end" },
-            ["[A"] = { query = "@parameter.inner", desc = "Prev argument end" },
+            ["[P"] = { query = "@parameter.inner", desc = "Prev argument end" },
           },
         },
       },
