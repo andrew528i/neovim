@@ -4,20 +4,9 @@ return {
   event = { 'BufReadPre', 'BufNewFile' },
   config = function()
     require("nvim-treesitter.configs").setup {
-      ensure_installed = {
-        "go",
-        "rust",
-        "lua",
-        "python",
-        "typescript",
-        "javascript",
-        "json",
-        "markdown",
-        "sql",
-        "yaml",
-        "html",
-      },
       sync_install = true,
+      ignore_install = {},
+      ensure_installed = {},
       auto_install = true,
       highlight = { enable = true },
       indent = { enable = true },
