@@ -54,13 +54,27 @@ _MODE_COLORS = {
 return {
   "rebelot/heirline.nvim",
   config = function()
-    require("heirline").load_colors(require("tokyonight.colors").default)
+    require("heirline").load_colors(require("onedark.palette").dark)
 
     local conditions = require("heirline.conditions")
     local utils = require("heirline.utils")
 
-    local Align = { provider = "%=" }
-    local Space = { provider = " " }
+    local Align = function(bg)
+      return {
+        provider = "%=",
+        hl = {
+          bg = bg,
+        },
+      }
+    end
+    local Space = function(bg)
+      return {
+        provider = " ",
+        hl = {
+          bg = bg,
+        },
+      }
+    end
 
     local ViMode = {
       init = function(self)
@@ -74,7 +88,11 @@ return {
         return "  %1(" .. mode .. "%)"
       end,
       hl = function(self)
-        local opts = { fg = "fg_dark", bold = true }
+        local opts = {
+          -- fg = "grey",
+          -- bg = "bg3",
+          bold = true,
+        }
         if conditions.is_active() then
           local mode = self.mode:sub(1, 1)
           opts.fg = _MODE_COLORS[mode]
@@ -84,7 +102,9 @@ return {
     }
 
     local Navic = {
-      condition = function() return require("nvim-navic").is_available() end,
+      condition = function()
+        return require("nvim-navic").is_available()
+      end,
       static = {
         type_hl = {
           File = "Directory",
@@ -122,7 +142,7 @@ return {
           local col = bit.band(bit.rshift(c, 6), 1023)
           local winnr = bit.band(c, 63)
           return line, col, winnr
-        end
+        end,
       },
       init = function(self)
         local data = require("nvim-navic").get_data() or {}
@@ -154,7 +174,7 @@ return {
           if #data > 1 and i < #data then
             table.insert(child, {
               provider = " > ",
-              hl = { fg = "teal", bg = "bg_dark" },
+              -- hl = { fg = "teal", bg = "bg2" },
             })
           end
           table.insert(children, child)
@@ -166,7 +186,7 @@ return {
       provider = function(self)
         return self.child:eval()
       end,
-      hl = { fg = "white", bg = "bg_dark" },
+      hl = { fg = "white", bg = "bg2" },
       -- update = "CursorMoved"
     }
 
@@ -180,7 +200,7 @@ return {
 
     local ScrollBar = {
       static = {
-        sbar = { "🭶", "🭷", "🭸", "🭹", "🭺", "🭻" }
+        sbar = { "🭶", "🭷", "🭸", "🭹", "🭺", "🭻" },
       },
       provider = function(self)
         local curr_line = vim.api.nvim_win_get_cursor(0)[1]
@@ -195,20 +215,25 @@ return {
       condition = conditions.is_git_repo,
       init = function(self)
         self.status_dict = vim.b.gitsigns_status_dict
-        self.has_changes = self.status_dict.added ~= 0 or self.status_dict.removed ~= 0 or self.status_dict.changed ~= 0
+        self.has_changes = self.status_dict.added ~= 0
+            or self.status_dict.removed ~= 0
+            or self.status_dict.changed ~= 0
       end,
-      hl = { fg = "orange", bg = "bg_dark" },
+      hl = {
+        fg = "orange",
+        bg = "bg0",
+      },
       {
         provider = function(self)
           return " " .. self.status_dict.head
         end,
-        hl = { bold = true }
+        hl = { bold = true },
       },
       {
         condition = function(self)
           return self.has_changes
         end,
-        provider = "("
+        provider = "(",
       },
       {
         provider = function(self)
@@ -237,7 +262,7 @@ return {
         end,
         provider = ")",
       },
-      Space,
+      Space("bg0"),
     }
 
     local Diagnostics = {
@@ -255,7 +280,7 @@ return {
         self.info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
       end,
       update = { "DiagnosticChanged", "BufEnter" },
-      Space,
+      Space("bg2"),
       {
         provider = function(self)
           local tail = ""
@@ -296,16 +321,16 @@ return {
           return self.hints > 0 and (self.hint_icon .. self.hints)
         end,
         hl = { fg = "white" },
-      }
+      },
     }
 
     local LSPActive = {
       condition = conditions.lsp_attached,
-      update    = {
+      update = {
         "LspAttach",
         "LspDetach",
       },
-      provider  = function()
+      provider = function()
         local names = {}
         for _, server in pairs(vim.lsp.get_active_clients({ bufnr = 0 })) do
           table.insert(names, server.name)
@@ -313,7 +338,11 @@ return {
         return " " .. table.concat(names, " ")
       end,
 
-      hl        = { fg = "green", bg = "bg_dark", bold = true },
+      hl = {
+        fg = "green",
+        bg = "bg0",
+        bold = true,
+      },
     }
 
     local FileNameBlock = {
@@ -323,24 +352,25 @@ return {
       init = function(self)
         self.filename = vim.api.nvim_buf_get_name(0)
       end,
+      hl = { bg = "bg2" },
     }
 
     local FileIcon = {
       init = function(self)
         local filename = self.filename
         local extension = vim.fn.fnamemodify(filename, ":e")
-        self.icon, self.icon_color = require("nvim-web-devicons").get_icon_color(
-          filename,
-          extension,
-          { default = true }
-        )
+        self.icon, self.icon_color =
+            require("nvim-web-devicons").get_icon_color(filename, extension, { default = true })
       end,
       provider = function(self)
         return self.icon and (self.icon .. " ")
       end,
       hl = function(self)
-        return { fg = self.icon_color, bg = "bg_dark" }
-      end
+        return {
+          fg = self.icon_color,
+          -- bg = "bg2",
+        }
+      end,
     }
 
     local FileName = {
@@ -350,29 +380,36 @@ return {
         -- return filename
 
         local filename = vim.fn.fnamemodify(self.filename, ":.")
-        if filename == "" then return "[No Name]" end
+        if filename == "" then
+          return "[No Name]"
+        end
         if not conditions.width_percent_below(#filename, 0.25) then
-            filename = vim.fn.pathshorten(filename)
+          filename = vim.fn.pathshorten(filename)
         end
         return filename
       end,
-      hl = { fg = "blue", bg = "bg_dark" },
+      hl = {
+        fg = "blue",
+        -- bg = "bg2",
+      },
     }
 
     local FileNameModifer = {
       hl = function()
         if vim.bo.modified then
           -- use `force` because we need to override the child"s hl foreground
-          return { fg = "green", bg = "bg_dark", bold = true, force = true }
+          return {
+            fg = "green",
+            -- bg = "bg2",
+            bold = true,
+            force = true,
+          }
         end
       end,
     }
 
-    FileNameBlock = utils.insert(FileNameBlock,
-      FileIcon,
-      utils.insert(FileNameModifer, FileName),
-      { provider = "%<" }
-    )
+    FileNameBlock =
+        utils.insert(FileNameBlock, FileIcon, utils.insert(FileNameModifer, FileName), { provider = "%<" })
 
     local WorkDir = {
       provider = function()
@@ -382,35 +419,40 @@ return {
         if not conditions.width_percent_below(#cwd, 0.25) then
           cwd = vim.fn.pathshorten(cwd)
         end
-        local trail = cwd:sub(-1) == '/' and '' or "/"
+        local trail = cwd:sub(-1) == "/" and "" or "/"
         return icon .. cwd .. trail
       end,
-      hl = { fg = "blue", bg = "bg_dark", bold = true },
+      hl = {
+        fg = "blue",
+        -- bg = "bg2",
+        bold = true,
+      },
     }
 
     local statusline = {
       condition = function()
         return vim.bo.filetype ~= "neo-tree"
       end,
-      utils.surround({ "", "" }, "dark3", {
+      utils.surround({ "", "" }, "bg2", {
         ViMode,
         Diagnostics,
       }),
-      Space,
+      Space("bg0"),
       Git,
-      Align,
+      Align("bg0"),
       LSPActive,
-      Space,
-      utils.surround({ "", "" }, "dark3", { Ruler, Space, ScrollBar }),
+      Space("bg0"),
+      utils.surround({ "", "" }, "bg2", { Ruler, Space("bg2"), ScrollBar }),
     }
     local winbar = {
-      Space,
+      Space("bg2"),
       FileNameBlock,
-      Space,
+      Space("bg2"),
       Navic,
+      Align("bg2"),
     }
 
-    require("heirline").setup {
+    require("heirline").setup({
       statusline = statusline,
       winbar = winbar,
       disable_winbar_cb = function(args)
@@ -419,6 +461,6 @@ return {
           filetype = { "^git.*", "fugitive", "Trouble", "dashboard" },
         }, args.buf)
       end,
-    }
+    })
   end,
 }

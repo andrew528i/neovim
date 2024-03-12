@@ -1,10 +1,11 @@
 return {
-  "folke/tokyonight.nvim",
+  "navarasu/onedark.nvim",
   lazy = false,
   priority = 1000,
   opts = {},
   config = function()
-    -- vim.opt.background = "dark"
-    vim.cmd.colorscheme "tokyonight"
+    local onedark = require("onedark")
+    onedark.setup { style = "dark" }
+    onedark.load()
   end,
 }
