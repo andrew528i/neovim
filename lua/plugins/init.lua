@@ -30,6 +30,7 @@ local plugins = {
   require("plugins.nvim-treesitter-textobjects"),
   require("plugins.nvim-ufo"),
   require("plugins.nvim-various-textobjs"),
+  require("plugins.none-ls"),
   require("plugins.telescope"),
   require("plugins.theme"),
   require("plugins.todo-comments"),
