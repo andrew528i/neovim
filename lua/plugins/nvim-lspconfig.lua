@@ -1,5 +1,15 @@
 local _LSP_SERVERS = {
-  gopls = {},
+  gopls = {
+    cmd = { "gopls" },
+    settings = {
+      gopls = {
+        experimentalPostfixCompletions = true,
+        completeUnimported = true,
+        usePlaceholders = true,
+        diagnosticsDelay = '300ms',
+      },
+    }
+  },
   lua_ls = {
     settings = {
       Lua = {
