@@ -11,7 +11,8 @@ return {
         null_ls.builtins.formatting.stylua.with({
           extra_args = {
             "--indent_type", "Spaces",
-            "--indents_width", "2"
+            "--indents_width", "2",
+            "--quote_style", "ForceDouble"
           },
         }),
         null_ls.builtins.completion.spell,
@@ -23,6 +24,7 @@ return {
         null_ls.builtins.formatting.goimports_reviser,
         null_ls.builtins.code_actions.gomodifytags,
         null_ls.builtins.code_actions.refactoring,
+        null_ls.builtins.formatting.gofmt,
       },
     })
   end,
