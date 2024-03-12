@@ -22,6 +22,7 @@ local plugins = {
   require("plugins.neo-tree"),
   require("plugins.neoscroll"),
   require("plugins.noice"),
+  require("plugins.none-ls"),
   require("plugins.nvim-cmp"),
   require("plugins.nvim-lspconfig"),
   require("plugins.nvim-scrollbar"),
@@ -30,21 +31,22 @@ local plugins = {
   require("plugins.nvim-treesitter-textobjects"),
   require("plugins.nvim-ufo"),
   require("plugins.nvim-various-textobjs"),
-  require("plugins.none-ls"),
   require("plugins.telescope"),
   require("plugins.theme"),
   require("plugins.todo-comments"),
   require("plugins.treesj"),
   require("plugins.true-zen"),
+  require("plugins.twilight"),
   require("plugins.vim-fugitive"),
   require("plugins.vim-lastplace"),
+  require("plugins.vim-tabby"),
   require("plugins.which-key"),
   require("plugins.workspaces"),
 }
 
 local opts = {
   install = {
-    colorscheme = { "tokyonight-night" }
+    colorscheme = { "tokyonight-night" },
   }
 }
 
