@@ -444,6 +444,7 @@ return {
       Space("bg0"),
       utils.surround({ "", "" }, "bg2", { Ruler, Space("bg2"), ScrollBar }),
     }
+
     local winbar = {
       Space("bg2"),
       FileNameBlock,
@@ -455,12 +456,14 @@ return {
     require("heirline").setup({
       statusline = statusline,
       winbar = winbar,
-      disable_winbar_cb = function(args)
-        return conditions.buffer_matches({
-          buftype = { "nofile", "prompt", "help", "quickfix" },
-          filetype = { "^git.*", "fugitive", "Trouble", "dashboard" },
-        }, args.buf)
-      end,
+      opts = {
+        disable_winbar_cb = function(args)
+          return conditions.buffer_matches({
+            buftype = { "nofile", "prompt", "help", "quickfix", "terminal" },
+            filetype = { "^git.*", "fugitive", "Trouble", "dashboard", "lazygit" },
+          }, args.buf)
+        end,
+      },
     })
   end,
 }
