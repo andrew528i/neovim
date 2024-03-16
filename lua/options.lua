@@ -38,10 +38,15 @@ vim.g.mapleader = ' '
 -- ui update frequency
 vim.opt.updatetime = 250
 
+-- turn off virtual text diagnostics text due to lsp_lines package
+vim.diagnostic.config({
+  virtual_text = false,
+})
+
 -- toggle diagnostic window
--- vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-  -- group = vim.api.nvim_create_augroup("float_diagnostic", { clear = true }),
-  -- callback = function ()
-    -- vim.diagnostic.open_float(nil, {focus=false})
-  -- end
--- })
+vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+  group = vim.api.nvim_create_augroup("float_diagnostic", { clear = true }),
+  callback = function ()
+    vim.diagnostic.open_float(nil, {focus=false})
+  end
+})
