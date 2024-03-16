@@ -7,17 +7,21 @@ return {
       term_bg = "#000000",
       inactive = false,
     },
-    context = 100,
+    context = 10,
     treesitter = true,
     expand = {
-      -- "function",
+      "function_declaration",
+      "method_declaration",
+      "type_spec",
+      "function_definition",
+      "function_item",
+      "function",
       "method",
-      -- "table",
-      -- "if_statement",
+      "table",
     },
     exclude = {}, -- exclude these filetypes
   },
   keys = {
-    { "<leader>t", "<cmd>Twilight<cr>", desc = "Toggle twilight" },
+    { "<leader>h", "<cmd>Twilight<cr>", desc = "Toggle twilight" },
   },
 }
