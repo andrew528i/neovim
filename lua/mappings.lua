@@ -20,4 +20,10 @@ vim.keymap.set({ "n", "v" }, "qw", "<C-w>q")
 vim.keymap.set({ "n", "v" }, "vv", "<C-w>v")
 
 -- delete all buffers
-vim.keymap.set({ "n", "v" }, "qb", utils.delete_all_buffers, { desc = "Delete all buffers" })
+vim.keymap.set({ "n", "v" }, "qB", utils.delete_all_buffers, { desc = "Close all buffers" })
+
+-- tabs
+vim.keymap.set({ "n", "v" }, "tt", function () vim.cmd("tabnew") end, { desc = "New tab" })
+vim.keymap.set({ "n", "v" }, "qt", function () vim.cmd("tabclose") end, { desc = "Close tab" })
+vim.keymap.set({ "n", "v" }, "qb", function () vim.cmd("windo bd") end, { desc = "Close tab buffers" })
+
