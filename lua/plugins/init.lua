@@ -6,9 +6,11 @@ local plugins = {
   require("plugins.dashboard-nvim"),
   require("plugins.fidget"),
   require("plugins.gitsigns"),
+  require("plugins.guess-indent"),
   require("plugins.heirline"),
   require("plugins.hlslens"),
   require("plugins.hop"),
+  require("plugins.lazygit"),
   require("plugins.luasnip"),
   require("plugins.mason"),
   require("plugins.mini-bracketed"),
@@ -21,6 +23,8 @@ local plugins = {
   require("plugins.modes"),
   require("plugins.neo-tree"),
   require("plugins.neoscroll"),
+  require("plugins.neotest"),
+  require("plugins.goto-preview"),
   require("plugins.noice"),
   require("plugins.none-ls"),
   require("plugins.nvim-cmp"),
@@ -46,7 +50,7 @@ local plugins = {
 
 local opts = {
   install = {
-    colorscheme = { "tokyonight-night" },
+    colorscheme = { "onedark" },
   }
 }
 
