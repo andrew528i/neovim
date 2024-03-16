@@ -10,7 +10,7 @@ return {
       line_left = "<S-Tab>",
       line_down = "<C-S-j>",
       line_up = "<C-S-k>",
-      line_right = "<Tab>",
+      -- line_right = "<Tab>",
     },
   },
 }
