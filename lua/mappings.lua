@@ -1,5 +1,3 @@
-local utils = require("utils")
-
 -- lsp client
 vim.keymap.set({ "n", "v" }, "gd", vim.lsp.buf.definition, { desc = "Go to LSP definition" })
 vim.keymap.set({ "n", "v" }, "gr", vim.lsp.buf.rename, { desc = "Rename LSP symbol" })
@@ -20,7 +18,7 @@ vim.keymap.set({ "n", "v" }, "qw", "<C-w>q")
 vim.keymap.set({ "n", "v" }, "vv", "<C-w>v")
 
 -- delete all buffers
-vim.keymap.set({ "n", "v" }, "qB", utils.delete_all_buffers, { desc = "Close all buffers" })
+vim.keymap.set({ "n", "v" }, "qB", "<cmd>%bd<cr>", { desc = "Close all buffers" })
 
 -- tabs
 vim.keymap.set({ "n", "v" }, "tt", function () vim.cmd("tabnew") end, { desc = "New tab" })
