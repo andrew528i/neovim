@@ -6,7 +6,7 @@ return {
   },
   keys = {
     { "<leader>ff", "<cmd>Telescope find_files<cr>",          desc = "Files",              silent = true },
-    { "<leader>fg", "<cmd>Telescope grep_string<cr>",         desc = "Grep string" },
+    { "<leader>fg", "<cmd>Telescope live_grep<cr>",           desc = "Grep string" },
     { "<leader>fb", "<cmd>Telescope buffers<cr>",             desc = "Buffers" },
     { "<leader>fh", "<cmd>Telescope command_history<cr>",     desc = "Command history" },
     { "<leader>fp", "<cmd>Telescope projects<cr>",            desc = "Projects" },
