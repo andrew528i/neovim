@@ -4,6 +4,7 @@ return {
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-treesitter/nvim-treesitter",
+    "nvim-neotest/nvim-nio",
     "nvim-neotest/neotest-go",
     "nvim-neotest/neotest-jest",
   },
@@ -21,7 +22,7 @@ return {
           jestCommand = "npx jest --",
           jestConfigFile = "custom.jest.config.ts",
           env = { CI = false },
-          cwd = function(path)
+          cwd = function(_)
             return vim.fn.getcwd()
           end,
         }),
