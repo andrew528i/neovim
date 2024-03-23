@@ -1,56 +1,3 @@
-_MODE_NAMES = {
-  n = "N",
-  no = "N?",
-  nov = "N?",
-  noV = "N?",
-  ["no\22"] = "N?",
-  niI = "Ni",
-  niR = "Nr",
-  niV = "Nv",
-  nt = "Nt",
-  v = "V",
-  vs = "Vs",
-  V = "V_",
-  Vs = "Vs",
-  ["\22"] = "^V",
-  ["\22s"] = "^V",
-  s = "S",
-  S = "S_",
-  ["\19"] = "^S",
-  i = "I",
-  ic = "Ic",
-  ix = "Ix",
-  R = "R",
-  Rc = "Rc",
-  Rx = "Rx",
-  Rv = "Rv",
-  Rvc = "Rv",
-  Rvx = "Rv",
-  c = "C",
-  cv = "Ex",
-  r = "...",
-  rm = "M",
-  ["r?"] = "?",
-  ["!"] = "!",
-  t = "T",
-}
-
-_MODE_COLORS = {
-  n = "green",
-  i = "orange",
-  v = "cyan",
-  V = "cyan",
-  ["\22"] = "cyan",
-  c = "orange",
-  s = "purple",
-  S = "purple",
-  ["\19"] = "purple",
-  R = "orange",
-  r = "orange",
-  ["!"] = "red",
-  t = "red",
-}
-
 return {
   "rebelot/heirline.nvim",
   config = function()
@@ -77,25 +24,74 @@ return {
     end
 
     local ViMode = {
+      static = {
+        mode_names = {
+          n = "N",
+          no = "N?",
+          nov = "N?",
+          noV = "N?",
+          ["no\22"] = "N?",
+          niI = "Ni",
+          niR = "Nr",
+          niV = "Nv",
+          nt = "Nt",
+          v = "V",
+          vs = "Vs",
+          V = "V_",
+          Vs = "Vs",
+          ["\22"] = "^V",
+          ["\22s"] = "^V",
+          s = "S",
+          S = "S_",
+          ["\19"] = "^S",
+          i = "I",
+          ic = "Ic",
+          ix = "Ix",
+          R = "R",
+          Rc = "Rc",
+          Rx = "Rx",
+          Rv = "Rv",
+          Rvc = "Rv",
+          Rvx = "Rv",
+          c = "C",
+          cv = "Ex",
+          r = "...",
+          rm = "M",
+          ["r?"] = "?",
+          ["!"] = "!",
+          t = "T",
+        },
+        mode_colors = {
+          n = "green",
+          i = "orange",
+          v = "cyan",
+          V = "cyan",
+          ["\22"] = "cyan",
+          c = "orange",
+          s = "purple",
+          S = "purple",
+          ["\19"] = "purple",
+          R = "orange",
+          r = "orange",
+          ["!"] = "red",
+          t = "red",
+        },
+      },
       init = function(self)
         self.mode = vim.fn.mode(1)
       end,
       provider = function(self)
-        local mode = "X"
+        local mode = "N"
         if conditions.is_active() then
-          mode = _MODE_NAMES[self.mode]
+          mode = self.mode_names[self.mode]
         end
         return "  %1(" .. mode .. "%)"
       end,
       hl = function(self)
-        local opts = {
-          -- fg = "grey",
-          -- bg = "bg3",
-          bold = true,
-        }
+        local opts = { bold = true }
         if conditions.is_active() then
           local mode = self.mode:sub(1, 1)
-          opts.fg = _MODE_COLORS[mode]
+          opts.fg = self.mode_colors[mode]
         end
         return opts
       end,
@@ -431,6 +427,9 @@ return {
 
     local statusline = {
       condition = function()
+        if not vim.bo or vim.bo.filetype == nil then
+          return false
+        end
         return vim.bo.filetype ~= "neo-tree"
       end,
       utils.surround({ "", "" }, "bg2", {
@@ -458,6 +457,9 @@ return {
       winbar = winbar,
       opts = {
         disable_winbar_cb = function(args)
+          if not args then
+            return true
+          end
           return conditions.buffer_matches({
             buftype = { "nofile", "prompt", "help", "quickfix", "terminal" },
             filetype = { "^git.*", "fugitive", "Trouble", "dashboard", "lazygit" },
