@@ -5,7 +5,7 @@ local _LSP_SERVERS = {
       gopls = {
         experimentalPostfixCompletions = true,
         completeUnimported = true,
-        usePlaceholders = true,
+        usePlaceholders = false,
         diagnosticsDelay = '300ms',
       },
     }
