@@ -16,6 +16,7 @@ vim.keymap.set({ "n", "v" }, "qw", "<C-w>q")
 
 -- split window vertically
 vim.keymap.set({ "n", "v" }, "vv", "<C-w>v")
+vim.keymap.set({ "n", "v" }, "vs", "<C-w>s")
 
 -- delete all buffers
 vim.keymap.set({ "n", "v" }, "qB", "<cmd>%bd<cr>", { desc = "Close all buffers" })
