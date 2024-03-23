@@ -8,6 +8,7 @@ return {
     require("workspaces").setup {
       hooks = {
         open = { "SessionRestore" },
+        open_pre = { "%bd" },
       },
     }
     require("telescope").load_extension("workspaces")
